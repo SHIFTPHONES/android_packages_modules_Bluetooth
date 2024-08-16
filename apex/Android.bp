@@ -23,7 +23,7 @@ apex {
     systemserverclasspath_fragments: ["com.android.btservices-systemserverclasspath-fragment"],
     compat_configs: ["bluetooth-compat-config"],
     key: "com.android.btservices.key",
-    certificate: "bluetooth",
+    certificate: ":com.android.btservices.certificate",
     updatable: false,
     compressible: false,
 }
@@ -58,7 +58,7 @@ apex {
         "privapp_allowlist_com.android.bluetooth.xml",
     ],
     key: "com.android.btservices.key",
-    certificate: "bluetooth",
+    certificate: ":com.android.btservices.certificate",
     updatable: false,
     compressible: false,
 }
@@ -67,6 +67,11 @@ apex_key {
     name: "com.android.btservices.key",
     public_key: "com.android.btservices.avbpubkey",
     private_key: "com.android.btservices.pem",
+}
+
+android_app_certificate {
+    name: "com.android.btservices.certificate",
+    certificate: "com.android.btservices",
 }
 
 sdk {
