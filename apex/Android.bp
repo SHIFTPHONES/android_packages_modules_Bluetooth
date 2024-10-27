@@ -17,13 +17,15 @@ linker_config {
 // TODO: Remove
 apex {
     name: "com.android.bluetooth",
-    defaults: ["t-launched-apex-module"],
+    defaults: [
+        "t-launched-apex-module",
+        "bluetooth.apex.certificate",
+    ],
     manifest: "apex_manifest.json",
     bootclasspath_fragments: ["com.android.btservices-bootclasspath-fragment"],
     systemserverclasspath_fragments: ["com.android.btservices-systemserverclasspath-fragment"],
     compat_configs: ["bluetooth-compat-config"],
     key: "com.android.btservices.key",
-    certificate: ":com.android.btservices.certificate",
     updatable: false,
     compressible: false,
 }
@@ -67,6 +69,25 @@ apex_key {
     name: "com.android.btservices.key",
     public_key: "com.android.btservices.avbpubkey",
     private_key: "com.android.btservices.pem",
+}
+
+soong_config_module_type_import {
+    from: "packages/modules/Bluetooth/Android.bp",
+    module_types: ["shift_cert_java_defaults"],
+}
+
+shift_cert_java_defaults {
+    name: "bluetooth.apex.certificate",
+    soong_config_variables: {
+        build_with_gms: {
+            true: {
+                certificate: ":com.android.btservices.certificate",
+            },
+            false: {
+                certificate: "bluetooth",
+            },
+        },
+    },
 }
 
 android_app_certificate {

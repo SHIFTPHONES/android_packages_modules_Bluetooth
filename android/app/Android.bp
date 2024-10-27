@@ -82,7 +82,10 @@ cc_library_shared {
 
 android_app {
     name: "Bluetooth",
-    defaults: ["bluetooth-module-sdk-version-defaults"],
+    defaults: [
+        "bluetooth-module-sdk-version-defaults",
+        "bluetooth.certificate",
+    ],
 
     srcs: [
         "src/**/*.java",
@@ -90,8 +93,6 @@ android_app {
         ":bluetooth-proto-enums-java-gen",
     ],
     aaptflags: [ "--custom-package", "com.android.bluetooth" ],
-    certificate: ":com.android.bluetooth.certificate",
-
     jarjar_rules: ":bluetooth-jarjar-rules",
 
     jni_uses_platform_apis: true,
@@ -196,7 +197,26 @@ genrule {
     out: ["com/android/bluetooth/BluetoothStatsLog.java"],
 }
 
+soong_config_module_type_import {
+    from: "packages/modules/Bluetooth/Android.bp",
+    module_types: ["shift_cert_java_defaults"],
+}
+
+shift_cert_java_defaults {
+    name: "bluetooth.certificate",
+    soong_config_variables: {
+        build_with_gms: {
+            true: {
+                certificate: ":com.android.bluetooth.certificate",
+            },
+            false: {
+                certificate: "bluetooth",
+            },
+        },
+    },
+}
+
 android_app_certificate {
     name: "com.android.bluetooth.certificate",
-    certificate: "certs/com.android.bluetooth"
+    certificate: "certs/com.android.bluetooth",
 }

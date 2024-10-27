@@ -67,3 +67,19 @@ filegroup {
         "AndroidTestTemplate.xml",
     ],
 }
+
+soong_config_string_variable {
+    name: "build_with_gms",
+    values: ["true", "false"],
+}
+
+soong_config_module_type {
+    name: "shift_cert_java_defaults",
+    module_type: "java_defaults",
+    config_namespace: "eco.shift",
+    variables: [
+        "build_with_gms",
+    ],
+    // change the cert depending on boolean value 'build_with_gms'
+    properties: ["certificate"],
+}
