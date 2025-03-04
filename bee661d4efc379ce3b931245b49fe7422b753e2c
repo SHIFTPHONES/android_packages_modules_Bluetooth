@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13f64516_197c8684",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000049
+      },
+      "writtenOn": "2025-03-04T15:37:43Z",
+      "side": 1,
+      "message": "Using this file from our baseline instead of security tag.",
+      "revId": "bee661d4efc379ce3b931245b49fe7422b753e2c",
+      "serverId": "5979fb85-960d-4ec4-8ce0-8568b21942fe"
+    }
+  ]
+}
